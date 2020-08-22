@@ -61,4 +61,5 @@ COPY . /build
 RUN cp lydia-bin /usr/local/bin/lydia
 
 RUN pip3 install .
-CMD python3 lydia_api/app.py
+RUN pip3 install gunicorn
+CMD gunicorn lydia_api.app:app

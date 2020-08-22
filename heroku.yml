@@ -4,8 +4,12 @@ build:
     lydia_api: ./server/Dockerfile
     client: ./client/Dockerfile
   config: {}
-release: {}
+release:
+ image: lydia_api
+ command: 
+  - gunicorn
+  - lydia_api.app:app
 run:
-  lydia_api: python server/app.py --port 5000
+  lydia_api: gunicorn lydia_api.app:app
   client: yarn run serve -s build -l 3000
 
