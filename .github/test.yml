@@ -1,0 +1,53 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+
+
+jobs:
+  server:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.7]
+    
+    timeout-minutes: 30
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: | 
+          pip install tox
+
+    - name: Lint
+      run: |
+          cd server
+          tox -e black
+          tox -e isort
+          tox -e flake8
+          tox -e mypy
+          tox -e bandit
+    - name: Test (no integration)
+      run: cd server tox -e py${{ matrix.python-version }} -- -m 'not integration'
+
+  client:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    
+    timeout-minutes: 30
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: cd client && yarn
+
+    - name: Build
+      run: cd client && yarn build
+
+    - name: Test
+      run: cd client && yarn test --watchAll=false
