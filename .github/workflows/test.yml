@@ -30,8 +30,8 @@ jobs:
     - name: Lint
       run: |
           cd server
-          tox -e black
-          tox -e isort
+          tox -e black-check
+          tox -e isort-check
           tox -e flake8
           tox -e mypy
           tox -e bandit
@@ -52,6 +52,10 @@ jobs:
     - name: Install dependencies
       run: cd client && yarn
 
+    - name: Lint
+      run: |
+          cd client
+          run yarn prettier:check
     - name: Build
       run: cd client && yarn build
 

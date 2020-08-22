@@ -1,265 +1,264 @@
 /* -*- coding: utf-8 -*-
-** Copyright (C) 2018-2020 Laboratoire de Recherche et Développement de
-** l'Epita.
-**
-** This application is free software; you can redistribute it and/or
-** modify it under the terms of the GNU General Public License as
-** published by the Free Software Foundation; either version 3 of the
-** License, or (at your option) any later version.
-**
-** This application is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** General Public License for more details.
-**
-** You should have received a copy of the GNU General Public License
-** along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-import React from "react";
-import "typeface-roboto";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import HelpIcon from "@material-ui/icons/Help";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import Paper from "@material-ui/core/Paper";
-import SvgIcon from "@material-ui/core/SvgIcon";
-import SVGInline from "react-svg-inline";
-import Switch from "@material-ui/core/Switch";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import Table from "@material-ui/core/Table";
-import TableRow from "@material-ui/core/TableRow";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+ ** Copyright (C) 2018-2020 Laboratoire de Recherche et Développement de
+ ** l'Epita.
+ **
+ ** This application is free software; you can redistribute it and/or
+ ** modify it under the terms of the GNU General Public License as
+ ** published by the Free Software Foundation; either version 3 of the
+ ** License, or (at your option) any later version.
+ **
+ ** This application is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+import React from 'react';
+import 'typeface-roboto';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import HelpIcon from '@material-ui/icons/Help';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import Paper from '@material-ui/core/Paper';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import SVGInline from 'react-svg-inline';
+import Switch from '@material-ui/core/Switch';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import Table from '@material-ui/core/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   toplevel: {
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    [theme.breakpoints.up("sm")]: {
-      justifyContent: "center"
-    }
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    [theme.breakpoints.up('sm')]: {
+      justifyContent: 'center',
+    },
   },
   help: {
     margin: theme.spacing.unit,
     paddingTop: theme.spacing.unit,
     width: 640 - 2 * theme.spacing.unit,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
-      marginRight: 0
+      marginRight: 0,
     },
-    "& h2": { color: theme.palette.primary.main }
+    '& h2': { color: theme.palette.primary.main },
   },
   helptop: {
-    padding: 4
+    padding: 4,
   },
   helpexpanded: {
     margin: 0,
-    "&:before": {
-      opacity: 1
-    }
+    '&:before': {
+      opacity: 1,
+    },
   },
   optable: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: "100%",
-    justifyContent: "space-around"
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
+    justifyContent: 'space-around',
   },
   oppair: {
-    display: "block",
+    display: 'block',
     padding: 2,
     margin: 2,
-    backgroundColor: "#EEEEEE"
+    backgroundColor: '#EEEEEE',
   },
   opdesc: {
-    float: "left"
+    float: 'left',
   },
   opsyn: {
-    float: "right"
+    float: 'right',
   },
   root: {
     margin: theme.spacing.unit,
     padding: theme.spacing.unit,
     width: 640 - 2 * theme.spacing.unit,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
-      marginRight: 0
-    }
+      marginRight: 0,
+    },
   },
   progress: {
-    display: "block",
-    margin: "auto"
+    display: 'block',
+    margin: 'auto',
   },
   optionstrans: {
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "flex-start"
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
   },
   tab: {
     maxWidth: 150,
-    minWidth: 50
+    minWidth: 50,
   },
   tablabel: {
-    fontSize: theme.typography.pxToRem(14)
+    fontSize: theme.typography.pxToRem(14),
   },
   fclvertical: {
-    marginRight: 0
+    marginRight: 0,
   },
   pre: {
-    overflow: "auto",
-    whiteSpace: "pre-wrap",
-    width: "100%"
+    overflow: 'auto',
+    whiteSpace: 'pre-wrap',
+    width: '100%',
   },
   LdlfInput: {
-    width: "100%",
-    overflow: "hidden"
+    width: '100%',
+    overflow: 'hidden',
   },
   ltlsyntax: {},
   helperText: {
-    marginTop: 0
+    marginTop: 0,
   },
   borderedgroupprimary: {
     padding: 8,
     margin: 5,
     borderWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderRadius: 4,
     borderColor: theme.palette.primary.main,
-    "& legend": {
+    '& legend': {
       paddingLeft: 8,
       paddingRight: 8,
-      backgroundColor: "white",
-      color: theme.palette.primary.light
-    }
+      backgroundColor: 'white',
+      color: theme.palette.primary.light,
+    },
   },
   borderedgroupsecondary: {
     padding: 8,
     margin: 5,
     borderWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderRadius: 4,
     borderColor: theme.palette.secondary.main,
-    "& legend": {
+    '& legend': {
       paddingLeft: 8,
       paddingRight: 8,
-      backgroundColor: "white",
-      color: theme.palette.secondary.light
+      backgroundColor: 'white',
+      color: theme.palette.secondary.light,
     },
-    "& legend$focused": {
-      color: theme.palette.secondary.main
-    }
+    '& legend$focused': {
+      color: theme.palette.secondary.main,
+    },
   },
   flexhoriz: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   focused: {},
 
   choicemenuitem: {
-    "&:focus": {
+    '&:focus': {
       backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white
-    }
+      color: theme.palette.common.white,
+    },
   },
   unabbrev: {
-    flexDirection: "row",
-    flexWrap: "wrap"
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   unabbrevboxroot: {
-    marginRight: "16px",
-    marginBottom: "-8px",
-    marginTop: "-8px"
+    marginRight: '16px',
+    marginBottom: '-8px',
+    marginTop: '-8px',
   },
   unabbrevboxlabel: {
-    marginLeft: "-8px"
+    marginLeft: '-8px',
   },
   parseerror: {
-    color: theme.palette.error.main
+    color: theme.palette.error.main,
   },
   textField: {
-    overflow: "hidden"
+    overflow: 'hidden',
   },
   textField1: {
-    overflow: "hidden",
-    backgroundColor: "#b2ffff"
+    overflow: 'hidden',
+    backgroundColor: '#b2ffff',
   },
   textField2: {
-    overflow: "hidden",
-    backgroundColor: "#ffccff"
+    overflow: 'hidden',
+    backgroundColor: '#ffccff',
   },
   update: {
-    width: "100px",
-    float: "right"
+    width: '100px',
+    float: 'right',
   },
   winicons: {
-    float: "right"
+    float: 'right',
   },
   helpiconsdiv: {
-    overflow: "auto"
+    overflow: 'auto',
   },
   helpicons: {
-    float: "right",
-    marginRight: theme.spacing.unit
+    float: 'right',
+    marginRight: theme.spacing.unit,
   },
   menu: {},
   versions: {
-    float: "right",
-    marginTop: "8px"
+    float: 'right',
+    marginTop: '8px',
   },
   vendiag: {
-    float: "right"
+    float: 'right',
   },
   versiontable: {},
   results: {
-    width: "100%",
+    width: '100%',
     padding: theme.spacing.unit,
-    overflow: "auto"
+    overflow: 'auto',
   },
   hierarchy_svg: {
-    float: "right"
+    float: 'right',
   },
   hierarchydiv: {
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   satisfiabilitydiv: {
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   stutterdiv: {},
   indexdiv: {
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   livenessdiv: {
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   wordtable: {
-    width: "auto"
+    width: 'auto',
   },
   wordtablerow: {
-    height: "auto"
+    height: 'auto',
   },
   wordtablecell: {
-    borderBottom: "none"
+    borderBottom: 'none',
   },
   wordtablecellw: {
-    borderBottom: "none",
-    fontWeight: "bold"
+    borderBottom: 'none',
+    fontWeight: 'bold',
   },
   automaton_svg: {
-    overflow: "auto",
+    overflow: 'auto',
     marginLeft: -4,
-    marginRight: -4
-  }
+    marginRight: -4,
+  },
 });
-
 
 function NoteIcon(props) {
   return (
@@ -301,7 +300,7 @@ function NoteText(props) {
 function api_endpoint() {
   return (
     window.location.protocol +
-    "//" +
+    '//' +
     window.location.hostname +
     process.env.REACT_APP_API_ENDPOINT
   );
@@ -309,7 +308,7 @@ function api_endpoint() {
 
 function renderError(msg) {
   console.log(msg);
-  if (!msg.startsWith("500 ")) return <pre>{msg}</pre>;
+  if (!msg.startsWith('500 ')) return <pre>{msg}</pre>;
   return (
     <React.Fragment>
       <pre>{msg}</pre>
@@ -317,12 +316,10 @@ function renderError(msg) {
         Our server automatically kills requests that require too much resources
         in terms of memory or time.
         <br /> If you do <i>not</i> think that is the case here, please send a
-        screenshot and any helpful detail to{" "}
-        <a href="mailto:favorito@diag.uniroma1.it">
-          the maintainers.
-        </a>
+        screenshot and any helpful detail to{' '}
+        <a href="mailto:favorito@diag.uniroma1.it">the maintainers.</a>
         .<br />
-        If you <i>do</i> think that is the case, please consider{" "}
+        If you <i>do</i> think that is the case, please consider{' '}
         <a href="https://github.com/whitemech/lydia.git">installing Lydia</a> to
         run your experiments locally; this is a shared service.
       </Typography>
@@ -332,7 +329,7 @@ function renderError(msg) {
 
 function handleErrors(response) {
   if (!response.ok) {
-    throw Error(response.status + " " + response.statusText);
+    throw Error(response.status + ' ' + response.statusText);
   }
   return response.json();
 }
@@ -340,7 +337,7 @@ function handleErrorsAndClearTimer(timer) {
   return response => {
     clearTimeout(timer);
     if (!response.ok) {
-      throw Error(response.status + " " + response.statusText);
+      throw Error(response.status + ' ' + response.statusText);
     }
     return response.json();
   };
@@ -348,8 +345,8 @@ function handleErrorsAndClearTimer(timer) {
 
 class LdlfInput extends React.Component {
   state = {
-    tmpformula: this.props.defaultValue || "",
-    formula: this.props.defaultValue || ""
+    tmpformula: this.props.defaultValue || '',
+    formula: this.props.defaultValue || '',
   };
 
   handleChange = e => {
@@ -363,15 +360,15 @@ class LdlfInput extends React.Component {
   };
 
   handleKey = e => {
-    if (e.key === "Enter") this.updateFormula();
+    if (e.key === 'Enter') this.updateFormula();
   };
 
   randomizeFormula = () => {
-    let url = new URL(api_endpoint() + "random");
+    let url = new URL(api_endpoint() + 'random');
     console.log(this.props.expert);
     if (this.props.expert)
       // turn on PSL generation
-      url.searchParams.append("p", 1);
+      url.searchParams.append('p', 1);
     fetch(url)
       .then(handleErrors)
       .then(fmt => {
@@ -402,11 +399,7 @@ class LdlfInput extends React.Component {
           )}
         </FormHelperText>
         {this.props.formulalbt && (
-          <NoteText
-            text={
-              "Assuming a syntax for LDLf (see help)"
-            }
-          />
+          <NoteText text={'Assuming a syntax for LDLf (see help)'} />
         )}
         {this.props.formulaerr && (
           <pre className={this.props.classes.parseerror}>
@@ -421,7 +414,7 @@ class LdlfInput extends React.Component {
 class Versions extends React.Component {
   state = {
     anchorEl: null,
-    versions: []
+    versions: [],
   };
 
   handleOpen = event => {
@@ -433,14 +426,14 @@ class Versions extends React.Component {
   };
 
   componentDidMount() {
-    fetch(api_endpoint() + "versions")
+    fetch(api_endpoint() + 'versions')
       .then(handleErrors)
       .then(vers => {
-        vers.push(["React", React.version, "https://reactjs.org/"]);
+        vers.push(['React', React.version, 'https://reactjs.org/']);
         this.setState({ versions: vers });
       })
       .catch(error =>
-        this.setState({ versions: [[error.message, null, null]] })
+        this.setState({ versions: [[error.message, null, null]] }),
       );
   }
 
@@ -485,8 +478,7 @@ class Versions extends React.Component {
 class LydiaResult extends React.Component {
   render() {
     return (
-      <Paper className={this.props.classes.results}>
-        {this.props.result}</Paper>
+      <Paper className={this.props.classes.results}>{this.props.result}</Paper>
     );
   }
 }
@@ -496,7 +488,7 @@ class LdlfTranslate extends React.Component {
 
   state = {
     result: null,
-    showfile: 0
+    showfile: 0,
   };
 
   componentWillUnmount() {
@@ -504,16 +496,16 @@ class LdlfTranslate extends React.Component {
   }
 
   showfilehoa = () => {
-    console.log("showfile:", this.state.showfile);
-    console.log("showfile:", this.state.showfile === 1);
+    console.log('showfile:', this.state.showfile);
+    console.log('showfile:', this.state.showfile === 1);
     let newval = this.state.showfile === 1 ? 0 : 1;
-    console.log("showfile:", newval);
+    console.log('showfile:', newval);
     this.setState({ showfile: newval });
-    console.log("showfile:", this.state.showfile);
+    console.log('showfile:', this.state.showfile);
   };
   showfilespin = () => {
     this.setState({ showfile: this.state.showfile === 2 ? 0 : 2 });
-    console.log("showfile:", this.state.showfile);
+    console.log('showfile:', this.state.showfile);
   };
 
   buildResult(res) {
@@ -523,20 +515,20 @@ class LdlfTranslate extends React.Component {
     return () => {
       return (
         <React.Fragment>
-          {"states" in res && (
+          {'states' in res && (
             <Typography>
-              {res["det"] ? "D" : "Non-d"}
-              eterministic automaton with {res["states"]} state
-              {res["states"] > 1 ? "s" : ""} and {res["edges"]} edge
-              {res["edges"] > 1 ? "s" : ""}.
+              {res['det'] ? 'D' : 'Non-d'}
+              eterministic automaton with {res['states']} state
+              {res['states'] > 1 ? 's' : ''} and {res['edges']} edge
+              {res['edges'] > 1 ? 's' : ''}.
             </Typography>
           )}
-          {"note" in res && res["note"].map(note => <NoteText text={note} />)}
-          {"automaton_svg" in res && (
+          {'note' in res && res['note'].map(note => <NoteText text={note} />)}
+          {'automaton_svg' in res && (
             <SVGInline
               className={this.props.classes.automaton_svg}
               component="div"
-              svg={res["automaton_svg"]}
+              svg={res['automaton_svg']}
             />
           )}
         </React.Fragment>
@@ -545,20 +537,19 @@ class LdlfTranslate extends React.Component {
   }
 
   updateResult() {
-    if (this.props.formula === "") {
-      this.setState({ result: "" });
+    if (this.props.formula === '') {
+      this.setState({ result: '' });
       return;
     }
     let url = new URL(
-      api_endpoint() + "translate/" + encodeURIComponent(this.props.formula)
+      api_endpoint() + 'translate/' + encodeURIComponent(this.props.formula),
     );
-
 
     this.timer = setTimeout(() => {
       this.setState({
         result: () => (
           <CircularProgress className={this.props.classes.progress} />
-        )
+        ),
       });
     }, 800);
     fetch(url)
@@ -608,8 +599,8 @@ class LdlfTranslate extends React.Component {
 class LydiaApp extends React.Component {
   state = {
     action: 3,
-    formula: "",
-    formula2: "",
+    formula: '',
+    formula2: '',
     formulaerr: null,
     formulalbt: false,
   };
@@ -619,7 +610,7 @@ class LydiaApp extends React.Component {
   };
 
   handleAnyParseError = res => {
-    if ("error" in res) this.setFormulaError(res["error"]);
+    if ('error' in res) this.setFormulaError(res['error']);
     else this.setFormulaError(null);
   };
 
@@ -641,14 +632,16 @@ class LydiaApp extends React.Component {
       <Paper className={this.props.classes.root}>
         {this.props.topright}
         {this.state.expert && <Versions classes={this.props.classes} />}
-        <div className="title-label"><b>Lydia Online Translator</b></div>
+        <div className="title-label">
+          <b>Lydia Online Translator</b>
+        </div>
         {(this.state.expert || this.state.hideoptions) && (
           <FormControlLabel
             control={
               <Switch
                 checked={this.state.hideoptions}
                 disabled={this.state.action === 1 || this.state.action === 2}
-                onChange={this.handleChecked("hideoptions")}
+                onChange={this.handleChecked('hideoptions')}
                 color="secondary"
                 value="hideoptions"
               />
@@ -663,7 +656,7 @@ class LydiaApp extends React.Component {
               ? this.props.classes.textField1
               : this.props.classes.textField
           }
-          label={this.state.action === 2 ? "First formula" : "Input formula"}
+          label={this.state.action === 2 ? 'First formula' : 'Input formula'}
           expert={this.state.expert}
           autoFocus
           setFormula={this.handleChangeFormula}
@@ -761,25 +754,23 @@ class Help extends React.Component {
           <ExpansionPanelDetails>
             <Typography>
               <Typography variant="body1" gutterBottom>
-                This web application is built using the {" "}
-                <a href="https://github.com/whitemech/lydia.git">Lydia</a> running on a
-                shared computer. For serious uses, we suggest installing
-                and using the tool locally.
+                This web application is built using the{' '}
+                <a href="https://github.com/whitemech/lydia.git">Lydia</a>{' '}
+                running on a shared computer. For serious uses, we suggest
+                installing and using the tool locally.
               </Typography>
               <Typography variant="body1" gutterBottom>
-                The source code for this application can be found{" "}
-                <a href="https://github.com/whitemech/lydia.git">
-                  on GitHub
-                </a>
-                , and is distributed under the{" "}
+                The source code for this application can be found{' '}
+                <a href="https://github.com/whitemech/lydia.git">on GitHub</a>,
+                and is distributed under the{' '}
                 <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
                   GNU GPL v3
-                </a>{" "}
+                </a>{' '}
                 license.
               </Typography>
               <Typography variant="body1" gutterBottom>
                 For any question not answered in this small help text, or for
-                reporting any bug, please send an email to{" "}
+                reporting any bug, please send an email to{' '}
                 <a href="mailto:favorito@diag.uniroma1.it">the authors</a> with
                 tag "[lydia]".
               </Typography>
@@ -793,13 +784,12 @@ class Help extends React.Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography variant="body1">
-              Currently, the only supported mode of interaction is to
-              construct a deterministic finite automaton equivalent to a given LDLf formula.
-
-              In the future, we aim to provide other features such as
-              analysis of the provided formula and performing LDLf synthesis,
-              as well as support for other temporal logic formalisms
-              like LTLf, PLTLf and PLDLf.
+              Currently, the only supported mode of interaction is to construct
+              a deterministic finite automaton equivalent to a given LDLf
+              formula. In the future, we aim to provide other features such as
+              analysis of the provided formula and performing LDLf synthesis, as
+              well as support for other temporal logic formalisms like LTLf,
+              PLTLf and PLDLf.
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -811,33 +801,32 @@ class Help extends React.Component {
           <ExpansionPanelDetails>
             <Typography>
               <Typography variant="body1" gutterBottom>
-                In this section it is described the grammar
-                accepted by the Lydia parser to encode 
-                LDLf formulas. It follows the 
-                syntax proposed in (Brafman et al. 2018)
-                (see the references section below).
+                In this section it is described the grammar accepted by the
+                Lydia parser to encode LDLf formulas. It follows the syntax
+                proposed in (Brafman et al. 2018) (see the references section
+                below).
               </Typography>
               <Typography variant="body2" color="primary">
                 Atomic propositions
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Use alphanumeric identifiers for atomic
-                propositions, and parentheses for grouping. Identifiers cannot
-                start with a digit, and can only contain the underscore <code_fmt text="_"/>.
-                Moreover, there are reserved words such as 
-                <Ldlf f="tt"/>, <Ldlf f="ff"/>, <Ldlf f="true"/>, <Ldlf f="false"/>,
-                <Ldlf f="end"/>, <Ldlf f="last"/>. More details
-                in the next sections.
+                Use alphanumeric identifiers for atomic propositions, and
+                parentheses for grouping. Identifiers cannot start with a digit,
+                and can only contain the underscore <code_fmt text="_" />.
+                Moreover, there are reserved words such as
+                <Ldlf f="tt" />, <Ldlf f="ff" />, <Ldlf f="true" />,{' '}
+                <Ldlf f="false" />,
+                <Ldlf f="end" />, <Ldlf f="last" />. More details in the next
+                sections.
               </Typography>
               <Typography variant="body2" color="primary">
                 Boolean constants
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Use <Ldlf f="tt" /> and{" "}
-                <Ldlf f="ff" /> to denote LDLf true and false, respectively.
-                Notice that it is different from the <it>propositional booleans</it>,
-                which you can define using <Ldlf f="true" /> or{" "}
-                <Ldlf f="false" />.
+                Use <Ldlf f="tt" /> and <Ldlf f="ff" /> to denote LDLf true and
+                false, respectively. Notice that it is different from the{' '}
+                <it>propositional booleans</it>, which you can define using{' '}
+                <Ldlf f="true" /> or <Ldlf f="false" />.
               </Typography>
               <Typography variant="body2" color="primary">
                 Boolean operators
@@ -847,38 +836,38 @@ class Help extends React.Component {
                 {OpTable(
                   [
                     [
-                      "and",
+                      'and',
                       <>
                         <Ldlf f="&amp;" />, <Ldlf f="&amp;&amp;" />
-                      </>
+                      </>,
                     ],
                     [
-                      "or",
+                      'or',
                       <>
                         <Ldlf f="|" />, <Ldlf f="||" />
-                      </>
+                      </>,
                     ],
                     [
-                      "not",
+                      'not',
                       <>
                         <Ldlf f="!" /> (prefix), <Ldlf f="~" /> (prefix)
-                      </>
+                      </>,
                     ],
                     [
-                      "implies",
+                      'implies',
                       <>
                         <Ldlf f="->" />, <Ldlf f="=>" />
-                      </>
+                      </>,
                     ],
                     [
-                      "equivalent",
+                      'equivalent',
                       <>
                         <Ldlf f="<->" />, <Ldlf f="<=>" />
-                      </>
+                      </>,
                     ],
                   ],
-                  "150px",
-                  this.props.classes
+                  '150px',
+                  this.props.classes,
                 )}
               </Typography>
               <Typography variant="body2" color="primary">
@@ -888,11 +877,11 @@ class Help extends React.Component {
                 The following binary operators are supported:
                 {OpTable(
                   [
-                    ["Diamond formula", <Ldlf f="[regex]formula" />],
-                    ["Box formula", <Ldlf f="[regex]formula" />],
+                    ['Diamond formula', <Ldlf f="[regex]formula" />],
+                    ['Box formula', <Ldlf f="[regex]formula" />],
                   ],
-                  "250px",
-                  this.props.classes
+                  '250px',
+                  this.props.classes,
                 )}
                 The following abbreviations are supported:
                 <Ldlf f="end" /> for <Ldlf f="[true]ff" />
@@ -906,46 +895,46 @@ class Help extends React.Component {
                 {OpTable(
                   [
                     [
-                      "propositionals, e.g.",
+                      'propositionals, e.g.',
                       <>
-                        <Ldlf f="p" />, <Ldlf f="p &amp; q" />, <Ldlf f="p | q" />,
+                        <Ldlf f="p" />, <Ldlf f="p &amp; q" />,{' '}
+                        <Ldlf f="p | q" />,
                         <Ldlf f="!p" />
-                      </>
+                      </>,
                     ],
                     [
-                      "sequence",
+                      'sequence',
                       <>
                         <Ldlf f="r1 ; r2" />
-                      </>
+                      </>,
                     ],
                     [
-                      "union",
+                      'union',
                       <>
                         <Ldlf f="r1 + r2" />
-                      </>
+                      </>,
                     ],
                     [
-                      "star",
+                      'star',
                       <>
-                        <Ldlf f="r*"/>
-                      </>
+                        <Ldlf f="r*" />
+                      </>,
                     ],
                     [
-                      "test",
+                      'test',
                       <>
-                        <Ldlf f="formula?"/>
-                      </>
+                        <Ldlf f="formula?" />
+                      </>,
                     ],
                   ],
-                  "300px",
-                  this.props.classes
+                  '300px',
+                  this.props.classes,
                 )}
-                Where <Ldlf f="formula"/> is an LDLf formula.
+                Where <Ldlf f="formula" /> is an LDLf formula.
               </Typography>
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-
 
         <ExpansionPanel classes={{ expanded: this.props.classes.helpexpanded }}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -954,13 +943,29 @@ class Help extends React.Component {
           <ExpansionPanelDetails>
             <Typography>
               <Typography variant="body1" gutterBottom>
-              Follows a list of references about LDLf:
-              <ul>
-                <li>De Giacomo, Giuseppe, and Moshe Y. Vardi. "Linear temporal logic and linear dynamic logic on finite traces." IJCAI'13 Proceedings of the Twenty-Third international joint conference on Artificial Intelligence. Association for Computing Machinery, 2013.</li>
-                <li>De Giacomo, Giuseppe, and Moshe Vardi. "Synthesis for LTL and LDL on finite traces." Twenty-Fourth International Joint Conference on Artificial Intelligence. 2015.</li>
-                <li>De Giacomo, Giuseppe, and Moshe Y. Vardi. "LTLf and LDLf Synthesis under Partial Observability." IJCAI. 2016.</li>
-                <li>Brafman, Ronen I., Giuseppe De Giacomo, and Fabio Patrizi. "LTLf/LDLf Non-Markovian Rewards." AAAI. 2018.</li>
-              </ul> 
+                Follows a list of references about LDLf:
+                <ul>
+                  <li>
+                    De Giacomo, Giuseppe, and Moshe Y. Vardi. "Linear temporal
+                    logic and linear dynamic logic on finite traces." IJCAI'13
+                    Proceedings of the Twenty-Third international joint
+                    conference on Artificial Intelligence. Association for
+                    Computing Machinery, 2013.
+                  </li>
+                  <li>
+                    De Giacomo, Giuseppe, and Moshe Vardi. "Synthesis for LTL
+                    and LDL on finite traces." Twenty-Fourth International Joint
+                    Conference on Artificial Intelligence. 2015.
+                  </li>
+                  <li>
+                    De Giacomo, Giuseppe, and Moshe Y. Vardi. "LTLf and LDLf
+                    Synthesis under Partial Observability." IJCAI. 2016.
+                  </li>
+                  <li>
+                    Brafman, Ronen I., Giuseppe De Giacomo, and Fabio Patrizi.
+                    "LTLf/LDLf Non-Markovian Rewards." AAAI. 2018.
+                  </li>
+                </ul>
               </Typography>
             </Typography>
           </ExpansionPanelDetails>
@@ -973,7 +978,7 @@ class Help extends React.Component {
 class LydiaApps extends React.Component {
   state = {
     instances: 1,
-    show_help: 0
+    show_help: 0,
   };
 
   handleDup = () => {
