@@ -1,3 +1,0 @@
-[submodule "server/lydia"]
-	path = server/lydia
-	url = ssh://git@github.com/whitemech/lydia.git

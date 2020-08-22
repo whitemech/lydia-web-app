@@ -15,12 +15,6 @@ Follow the instructions to set up the development environment.
 git clone https://github.com/whitemech/lydia-web-app.git --recursive
 ```
 
-- Update submodules recursively
-```
-cd server/lydia && git submodule update --init --recursive
-cd ../../
-```
-
 - Create the virtual environment and install the Python dependencies:
 ```
 cd server && pipenv shell --python 3.7 && pipenv install --dev && cd ../
