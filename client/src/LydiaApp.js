@@ -18,38 +18,25 @@
 import React from "react";
 import "typeface-roboto";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import HelpIcon from "@material-ui/icons/Help";
 import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import SVGInline from "react-svg-inline";
 import Switch from "@material-ui/core/Switch";
-import Tab from "@material-ui/core/Tab";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
-import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
-import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -359,14 +346,6 @@ function handleErrorsAndClearTimer(timer) {
   };
 }
 
-function righthelp(contents, help) {
-  return (
-    <Tooltip title={help} placement="right" enterDelay={750}>
-      <div>{contents}</div>
-    </Tooltip>
-  );
-}
-
 class LdlfInput extends React.Component {
   state = {
     tmpformula: this.props.defaultValue || "",
@@ -662,7 +641,7 @@ class LydiaApp extends React.Component {
       <Paper className={this.props.classes.root}>
         {this.props.topright}
         {this.state.expert && <Versions classes={this.props.classes} />}
-        <div class="title-label"><b>Lydia Online Translator</b></div>
+        <div className="title-label"><b>Lydia Online Translator</b></div>
         {(this.state.expert || this.state.hideoptions) && (
           <FormControlLabel
             control={

@@ -34,7 +34,7 @@ cd client && npm install && cd ../
 
 To launch the server on http://localhost:5000:
 ```
-python server/lydiaapi.py
+python -m server/lydia_api
 ```
 
 Then launch a client with
@@ -43,7 +43,7 @@ cd client
 npm run start
 ```
 
-Now any save to `lydiaapi.py` or `client/src/LydiaApp.js` will cause these
+Now any save to `lydia_api.py` or `client/src/LydiaApp.js` will cause these
 components to reload automatically.
 
 ## Authors
