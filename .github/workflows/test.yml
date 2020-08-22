@@ -55,7 +55,7 @@ jobs:
     - name: Lint
       run: |
           cd client
-          run yarn prettier:check
+          yarn run prettier:check
     - name: Build
       run: cd client && yarn build
     - name: Test
