@@ -50,7 +50,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run: cd client && yarn
+      run: cd client && yarn install --dev
 
     - name: Lint
       run: |
