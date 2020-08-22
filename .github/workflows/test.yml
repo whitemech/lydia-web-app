@@ -58,6 +58,5 @@ jobs:
           run yarn prettier:check
     - name: Build
       run: cd client && yarn build
-
     - name: Test
       run: cd client && yarn test --watchAll=false

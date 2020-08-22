@@ -30,11 +30,11 @@ cd server && pipenv shell --python 3.7 && pipenv install --dev && cd ../
 cd client && npm install && cd ../
 ```
 
-## Run 
+## Run (manually)
 
 To launch the server on http://localhost:5000:
 ```
-python -m server/lydia_api
+python server/lydia_api/app.py
 ```
 
 Then launch a client with
@@ -43,8 +43,20 @@ cd client
 npm run start
 ```
 
-Now any save to `lydia_api.py` or `client/src/LydiaApp.js` will cause these
+Now any save to `lydia_api/app.py` or `client/src/LydiaApp.js` will cause these
 components to reload automatically.
+
+## Run with Docker Compose
+
+You can run the whole system with [Docker Compose](https://docs.docker.com/compose/). Please make 
+sure you have both [Docker](https://www.docker.com/) and 
+[Docker Compose](https://docs.docker.com/compose) installed on your machine. Then:
+```
+docker-compose build
+docker-compose up
+```
+
+You can access the front-end at http://localhost:3000 and the backend at http://localhost:5000/api.
 
 ## Authors
 

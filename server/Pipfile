@@ -21,6 +21,7 @@ pydocstyle = "*"
 [packages]
 flask = "*"
 flask-cors = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

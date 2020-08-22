@@ -22,11 +22,14 @@ import re
 import shutil
 import subprocess
 import tempfile
+from dataclasses import dataclass
 from functools import wraps
 from pathlib import Path
 from platform import python_version
 from time import time
 
+import flask
+from dotenv import find_dotenv, load_dotenv
 from flask import Flask
 from flask import __version__ as flask_version
 from flask import request
@@ -35,12 +38,35 @@ from flask_cors import CORS
 
 CURRENT_DIRECTORY = os.path.dirname(inspect.getfile(inspect.currentframe()))
 ROOT_SERVER_DIRECTORY = str(Path(CURRENT_DIRECTORY).parent)
+DOTENV_FILE = os.path.join(ROOT_SERVER_DIRECTORY, ".env")
 app = Flask(__name__)
 CORS(app)
 TIMEOUT = 5
 
-LYDIA_BIN_PATH: str = str(Path(ROOT_SERVER_DIRECTORY, "binaries", "lydia").absolute())
-DOT_BIN_PATH: str = str(shutil.which("dot"))
+
+@dataclass(frozen=True)
+class Configuration:
+    """
+    An helper class that lets the app to seamlessly 
+    read configuration from code and from OS environment.
+    """
+
+    FLASK_RUN_HOST: str = "0.0.0.0"
+    FLASK_RUN_PORT: int = 5000
+    LYDIA_BIN_PATH: str = shutil.which("lydia")
+    DOT_BIN_PATH: str = shutil.which("dot")
+
+    def __getattribute__(self, varname):
+        """Get varname from os.environ, else None"""
+        value = os.environ.get(varname, None)
+        try:
+            default = super(Configuration, self).__getattribute__(varname)
+        except AttributeError:
+            default = None
+        return value if value else default
+
+
+configuration = Configuration()
 
 
 def assert_(condition, message: str = ""):
@@ -81,22 +107,27 @@ def warn(res, msg):
         res["note"] = [msg]
 
 
+@app.route("/api/")
+def healthcheck():
+    return {}, 200
+
+
 # Return a Json list of triplets [[tool,version,url],...].
 @app.route("/api/versions")
 @cachecontrol()
 def versions():
     app.logger.info("Request /api/versions")
     try:
-        dot = run_cli([DOT_BIN_PATH, "-V"])
+        dot = run_cli([configuration.DOT_BIN_PATH, "-V"])
         (out, err) = dot.communicate(timeout=0.5)
         assert_(dot.returncode == 0)
         dot_version = err.split(b"\n")[0].split(b"version ")[1].decode("utf-8")
     except Exception as e:
-        app.logger.logger(f"Dot version failed: {e}")
+        app.logger.error(f"Dot version failed: {e}")
         dot_version = "missing"
 
     try:
-        lydia = run_cli([LYDIA_BIN_PATH, "--version"])
+        lydia = run_cli([configuration.LYDIA_BIN_PATH, "--version"])
         (out, err) = lydia.communicate(timeout=0.5)
         assert_(lydia.returncode == 0)
         lydia_version = out.decode("utf-8").strip()
@@ -140,7 +171,13 @@ def translate(ldlf_formula, method="GET"):
 
         try:
             app.logger.info(f"Writing formula to path {path_to_formula}")
-            cmd = [LYDIA_BIN_PATH, "-f", path_to_formula, "-g", path_to_svg]
+            cmd = [
+                configuration.LYDIA_BIN_PATH,
+                "-f",
+                path_to_formula,
+                "-g",
+                path_to_svg,
+            ]
             process = run_cli(cmd)
             (out, err) = process.communicate(timeout=5)
             assert_(
@@ -162,4 +199,5 @@ def translate(ldlf_formula, method="GET"):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True, use_debugger=False)
+    load_dotenv(DOTENV_FILE)
+    app.run(host=configuration.FLASK_RUN_HOST, port=configuration.FLASK_RUN_PORT)

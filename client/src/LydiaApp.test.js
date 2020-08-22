@@ -1,9 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import LydiaApp from './LydiaApp';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<LydiaApp />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  shallow(<LydiaApp />);
+});
+
+it('full rendering without crashing', () => {
+  mount(<LydiaApp />);
 });
