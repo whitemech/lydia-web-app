@@ -25,5 +25,6 @@ RUN mkdir /build
 WORKDIR /build
 COPY . /build
 
-RUN yarn
-CMD PORT=3000 yarn start
+RUN yarn install --dev
+RUN yarn build
+CMD yarn run serve -s build -l 3000

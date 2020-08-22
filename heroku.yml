@@ -1,0 +1,11 @@
+setup: {}
+build:
+  docker:
+    lydia_api: ./server/Dockerfile
+    client: ./client/Dockerfile
+  config: {}
+release: {}
+run:
+  lydia_api: python server/app.py --port 5000
+  client: yarn run serve -s build -l 3000
+

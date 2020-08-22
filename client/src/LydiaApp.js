@@ -301,7 +301,7 @@ function api_endpoint() {
   return (
     window.location.protocol +
     '//' +
-    window.location.hostname +
+    process.env.REACT_APP_API_HOSTNAME +
     process.env.REACT_APP_API_ENDPOINT
   );
 }
