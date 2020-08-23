@@ -64,7 +64,8 @@ RUN mkdir /client
 COPY ./server /server
 COPY ./client /client
 
-ENV REACT_APP_API_ENDPOINT /api/
+ARG REACT_APP_API_ENDPOINT=/api/
+ARG REACT_APP_API_HOSTNAME=localhost
 
 RUN cd /client && yarn install
 RUN cd /client && yarn build
