@@ -23,10 +23,12 @@ services:
         - --port 5000
 
 
-  client:
+  web:
     image: "lydia-web-app-client"
     depends_on:
       - lydia_api
+    environment:
+        - PORT=3000
     build:
       context: client/
     networks:
@@ -34,9 +36,6 @@ services:
         ipv4_address: 172.28.1.3
     ports:
     - "3000:3000"
-    entrypoint: 
-        - yarn 
-        - start
 
 networks:
   main_net:

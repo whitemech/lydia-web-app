@@ -1,10 +1,10 @@
 setup: {}
 build:
   docker:
+    web: ./client/Dockerfile
     lydia_api: ./server/Dockerfile
-    client: ./client/Dockerfile
   config: {}
 run:
-  lydia_api: gunicorn lydia_api.app:app
-  client: yarn run serve -s build -l 3000
+  web: yarn run serve -s build -l $PORT
+  lydia_api: gunicorn --bind 0.0.0.0:$PORT wsgi
 

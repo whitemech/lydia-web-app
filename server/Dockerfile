@@ -62,4 +62,4 @@ RUN cp lydia-bin /usr/local/bin/lydia
 
 RUN pip3 install .
 RUN pip3 install gunicorn
-CMD gunicorn lydia_api.app:app
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi

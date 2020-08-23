@@ -27,4 +27,4 @@ COPY . /build
 
 RUN yarn install --dev
 RUN yarn build
-CMD yarn run serve -s build -l 3000
+CMD yarn run serve -s build -l $PORT
