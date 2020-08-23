@@ -766,3 +766,6 @@ $RECYCLE.BIN/
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,vim,pycharm,visualstudiocode,python,flask,react,reactnative,yarn,node
+
+
+!server/.env

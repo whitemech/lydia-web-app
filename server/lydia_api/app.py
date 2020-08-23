@@ -28,8 +28,9 @@ from pathlib import Path
 from platform import python_version
 from time import time
 
-import flask
 from dotenv import find_dotenv, load_dotenv
+
+import flask
 from flask import Flask
 from flask import __version__ as flask_version
 from flask import request
@@ -39,8 +40,7 @@ from flask_cors import CORS
 CURRENT_DIRECTORY = os.path.dirname(inspect.getfile(inspect.currentframe()))
 ROOT_SERVER_DIRECTORY = str(Path(CURRENT_DIRECTORY).parent)
 DOTENV_FILE = os.path.join(ROOT_SERVER_DIRECTORY, ".env")
-app = Flask(__name__)
-CORS(app)
+load_dotenv(DOTENV_FILE)
 TIMEOUT = 5
 
 
@@ -51,6 +51,7 @@ class Configuration:
     read configuration from code and from OS environment.
     """
 
+    FLASK_STATIC_FOLDER: str = None
     FLASK_RUN_HOST: str = "0.0.0.0"
     FLASK_RUN_PORT: int = 5000
     LYDIA_BIN_PATH: str = shutil.which("lydia")
@@ -67,6 +68,10 @@ class Configuration:
 
 
 configuration = Configuration()
+app = Flask(
+    __name__, static_folder=configuration.FLASK_STATIC_FOLDER, static_url_path="/"
+)
+CORS(app)
 
 
 def assert_(condition, message: str = ""):
@@ -158,7 +163,7 @@ def versions():
 # }
 @app.route("/api/translate/<path:ldlf_formula>")
 @cachecontrol()
-def translate(ldlf_formula, method="GET"):
+def translate(ldlf_formula):
     app.logger.info(f"Request /api/translate with formula {ldlf_formula}")
     res = {}
     with tempfile.TemporaryDirectory() as tmp:
@@ -198,6 +203,19 @@ def translate(ldlf_formula, method="GET"):
     return jsonify(res)
 
 
+# @app.route('/')
+def index():
+    app.logger.debug(app.static_folder)
+    return app.send_static_file("index.html")
+
+
+if configuration.FLASK_STATIC_FOLDER:
+    index = app.route("/")(index)
+
+
 if __name__ == "__main__":
-    load_dotenv(DOTENV_FILE)
-    app.run(host=configuration.FLASK_RUN_HOST, port=configuration.FLASK_RUN_PORT)
+    app.run(
+        host=configuration.FLASK_RUN_HOST,
+        port=configuration.FLASK_RUN_PORT,
+        debug=False,
+    )

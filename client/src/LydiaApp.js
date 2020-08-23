@@ -298,6 +298,9 @@ function NoteText(props) {
 }
 
 function api_endpoint() {
+  console.log(
+    process.env.REACT_APP_API_HOSTNAME + process.env.REACT_APP_API_ENDPOINT,
+  );
   return (
     window.location.protocol +
     '//' +

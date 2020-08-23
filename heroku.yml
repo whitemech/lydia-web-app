@@ -1,10 +1,9 @@
 setup: {}
 build:
   docker:
-    web: ./client/Dockerfile
-    lydia_api: ./server/Dockerfile
-  config: {}
+    web: ./Dockerfile
+  config:
+    FLASK_STATIC_FOLDER: /client/build
 run:
-  web: yarn run serve -s build -l $PORT
-  lydia_api: gunicorn --bind 0.0.0.0:$PORT wsgi
+  web: gunicorn --bind 0.0.0.0:$PORT wsgi
 
