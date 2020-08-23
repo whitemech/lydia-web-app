@@ -28,9 +28,8 @@ from pathlib import Path
 from platform import python_version
 from time import time
 
-from dotenv import find_dotenv, load_dotenv
-
 import flask
+from dotenv import find_dotenv, load_dotenv
 from flask import Flask
 from flask import __version__ as flask_version
 from flask import request
