@@ -25,6 +25,6 @@ RUN mkdir /build
 WORKDIR /build
 COPY . /build
 
-RUN yarn install --dev
+RUN yarn install
 RUN yarn build
 CMD yarn run serve -s build -l $PORT

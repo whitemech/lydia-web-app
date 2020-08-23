@@ -57,12 +57,16 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN apt update && apt install -y yarn
 
+RUN pip3 install gunicorn
+
 RUN mkdir /server
 RUN mkdir /client
 COPY ./server /server
 COPY ./client /client
 
-RUN cd /client && yarn install --dev
+ENV REACT_APP_API_ENDPOINT /api/
+
+RUN cd /client && yarn install
 RUN cd /client && yarn build
 RUN cp /server/lydia-bin /usr/local/bin/lydia
 
@@ -75,5 +79,4 @@ WORKDIR /server
 #     make install
 
 RUN pip3 install .
-RUN pip3 install gunicorn
 CMD FLASK_STATIC_FOLDER=/client/build gunicorn --bind 0.0.0.0:$PORT wsgi
