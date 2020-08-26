@@ -880,7 +880,7 @@ class Help extends React.Component {
                 The following binary operators are supported:
                 {OpTable(
                   [
-                    ['Diamond formula', <Ldlf f="[regex]formula" />],
+                    ['Diamond formula', <Ldlf f="<regex>formula" />],
                     ['Box formula', <Ldlf f="[regex]formula" />],
                   ],
                   '250px',
