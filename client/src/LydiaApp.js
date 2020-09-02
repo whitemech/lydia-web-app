@@ -39,6 +39,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import GitHubCorners from '@uiw/react-github-corners';
 
 const styles = theme => ({
   toplevel: {
@@ -1003,6 +1004,13 @@ class LydiaApps extends React.Component {
   render() {
     return (
       <div className={this.props.classes.toplevel}>
+        <GitHubCorners
+          fixed
+          target="__blank"
+          zIndex={10}
+          href="https://github.com/whitemech/lydia.git"
+          rel="noopener noreferrer"
+        />
         <LydiaApp
           classes={this.props.classes}
           topright={
