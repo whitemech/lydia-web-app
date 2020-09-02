@@ -23,15 +23,6 @@ RUN apt-get install -y build-essential && \
     apt-get install -y graphviz
 
 # Lydia build dependencies 
-# TODO remove all of these in favor of GH releases
-# CUDD
-RUN git clone https://github.com/KavrakiLab/cudd &&\
-    cd cudd &&\
-    autoreconf -i &&\
-    ./configure --enable-silent-rules --enable-obj --enable-dddmp &&\
-    make &&\
-    make install
-
 
 # Flex & Bison & Graphviz
 RUN apt-get install -y flex && \
@@ -39,14 +30,26 @@ RUN apt-get install -y flex && \
     apt-get install -y libgraphviz-dev
 
 
-# MONA
-RUN wget https://github.com/cs-au-dk/MONA/archive/1.4-18.tar.gz &&\
-    tar -xf 1.4-18.tar.gz &&\
-    cd MONA-1.4-18 &&\
-    ./configure &&\
-    make &&\
-    make install
+RUN echo "Installing CUDD..." &&\
+    wget https://github.com/whitemech/cudd/releases/download/v3.0.0/cudd_3.0.0_linux-amd64.tar.gz &&\
+    tar -xf cudd_3.0.0_linux-amd64.tar.gz &&\
+    cd cudd_3.0.0_linux-amd64 &&\
+    sudo cp -P lib/* /usr/local/lib/ &&\
+    sudo cp -Pr include/* /usr/local/include
 
+RUN echo "Installing MONA..." &&\
+    wget https://github.com/whitemech/MONA/releases/download/v1.4-18.dev0/mona_1.4-18.dev0_linux-amd64.tar.gz &&\
+    tar -xf mona_1.4-18.dev0_linux-amd64.tar.gz &&\
+    cd mona_1.4-18.dev0_linux-amd64 &&\
+    sudo cp -P lib/* /usr/local/lib/ &&\
+    sudo cp -Pr include/* /usr/local/include
+
+RUN echo "Installing MiniSAT..." &&\
+    wget https://github.com/whitemech/minisat/releases/download/v2.1.0/minisat_2.1.0_linux-amd64.tar.gz &&\
+    tar -xf minisat_2.1.0_linux-amd64.tar.gz &&\
+    cd minisat_2.1.0_linux-amd64 &&\
+    sudo cp -P lib/* /usr/local/lib/ &&\
+    sudo cp -Pr include/* /usr/local/include
 
 # helper tools
 RUN apt-get install -y curl && \
