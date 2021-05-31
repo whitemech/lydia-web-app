@@ -14,9 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+Define the app and the configuration objects.
 
-"""Test Lydia API."""
+The purpose of this module is to avoid circular imports between
+the base module and the modules where the API handlers are defined.
+"""
+import connexion
 
+from lydia_web_api.base import Configuration
 
-def test_server():
-    """Test the Lydia API server."""
+configuration = Configuration()
+"""Globally available configuration object."""
+
+app = connexion.App(__name__, specification_dir="spec/")

@@ -1,12 +1,12 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
+name = "pypi"
 
 [dev-packages]
 pytest = "*"
 flake8 = "*"
-black = "==19.10b"
+black = "==21.5b1"
 isort = "*"
 tox = "*"
 mypy = "*"
@@ -18,11 +18,14 @@ flake8-docstrings = "*"
 flake8-import-order = "*"
 pydocstyle = "*"
 gunicorn = "*"
+safety = "*"
+vulture = "*"
 
 [packages]
 flask = "*"
 flask-cors = "*"
 python-dotenv = "*"
+logaut = {git = "https://github.com/whitemech/logaut.git"}
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

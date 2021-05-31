@@ -61,10 +61,3 @@ docker run -p 5000:5000 -it lydia-web-app-server
 
 However, we suggest using Docker Compose, introduced in the README 
 of the project root. 
-
-## Run as single tier service
-
-If the variable `STATIC_FOLDER` in `.env` is set, the Flask server
-will also serve the front-end. It will look for the front-end
-in `../client/build`, so make sure you have called `yarn build`
-in the React project.

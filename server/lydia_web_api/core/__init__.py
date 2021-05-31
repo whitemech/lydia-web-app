@@ -14,9 +14,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-"""Test Lydia API."""
-
-
-def test_server():
-    """Test the Lydia API server."""
+"""This module contains the implementation of each API method."""

@@ -14,9 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""Package-wide constants."""
+import inspect
+import os
+from pathlib import Path
 
-"""Test Lydia API."""
+from dotenv import load_dotenv
 
+CURRENT_DIRECTORY = Path(os.path.dirname(inspect.getfile(inspect.currentframe())))  # type: ignore
+ROOT_SERVER_DIRECTORY = str(Path(CURRENT_DIRECTORY).parent)
+DOTENV_FILE = os.path.join(ROOT_SERVER_DIRECTORY, ".env")
+load_dotenv(DOTENV_FILE)
+TIMEOUT = 5
 
-def test_server():
-    """Test the Lydia API server."""
+ABOUT_BLANK = "about:blank"

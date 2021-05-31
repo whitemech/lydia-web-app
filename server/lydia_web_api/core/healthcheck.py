@@ -14,9 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""Health-check."""
 
-"""Test Lydia API."""
+from flask import jsonify
+
+from lydia_web_api.decorators import request_handler
 
 
-def test_server():
-    """Test the Lydia API server."""
+@request_handler
+def check():
+    """Return success (health-check)."""
+    return jsonify(status=200)

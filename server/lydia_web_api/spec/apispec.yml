@@ -1,0 +1,131 @@
+openapi: "3.0.0"
+
+info:
+  title: Lydia APIs
+  description: "This is the API specification for Lydia-as-a-service."
+  version: "0.1.0"
+  contact:
+    name: Marco Favorito
+    url: https://marcofavorito.me/
+    email: favorito@diag.uniroma1.it
+  license:
+    name: LGPL v3.0
+    url: https://www.gnu.org/licenses/lgpl-3.0.en.html
+
+servers:
+  - url: /api
+
+paths:
+  /:
+    get:
+      summary: Check health of the service.
+      description: Check that the API service is up and running.
+      operationId: lydia_web_api.core.healthcheck.check
+      deprecated: false
+      tags: ["LYDIA"]
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json:':
+              schema:
+                type: object
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/problem"
+
+  /versions:
+    get:
+      summary: Return the versions of the dependencies
+      description: "Return the API version and
+        the versions of the dependencies used for the APIs.
+        In particular, return the versions of:
+        - APIs
+        - Lydia tool
+        - Python interpreter used"
+      operationId: lydia_web_api.core.version.version
+      deprecated: false
+      tags: ["LYDIA"]
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json:':
+              schema:
+                type: object
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/problem"
+  /automaton:
+    get:
+      summary: "Compute the automaton equivalent to the input formula."
+      description: "This method takes in input:
+      - the formalism the formula is written in
+      - the formula itself
+      - a list of supported automaton formats
+
+      and returns the automaton in the specified formats."
+      operationId: lydia_web_api.core.automaton.automaton
+      deprecated: false
+      parameters:
+      - in: query
+        name: formalism
+        required: true
+        schema:
+          $ref: "#/components/schemas/supported_formalisms"
+        description: The formalism in which the formula is written in.
+      - in: query
+        name: formula
+        required: true
+        schema:
+          $ref: "#/components/schemas/formula"
+        description: The formula to translate.
+      - in: query
+        name: output_format
+        required: true
+        schema:
+          $ref: "#/components/schemas/automaton_formats"
+        description: The formula to translate.
+      tags: [ "LYDIA" ]
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json:':
+              schema:
+                $ref: "#/components/schemas/output_automaton"
+
+components:
+  schemas:
+    supported_formalisms:
+      type: string
+      enum: [ltlf, ldlf]
+      description: Available logic formalisms
+    formula:
+      type: string
+      description: The formula in string format
+    automaton_format:
+      type: string
+      enum: [dot, svg, json]
+      description: Available automaton formats
+    automaton_formats:
+      type: array
+      items:
+        $ref: "#/components/schemas/automaton_format"
+    problem:
+      description: "error occurred - see status code and problem object for more information."
+      type: object
+#      $ref: 'https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml#/Problem'
+    output_automaton:
+      description: "A JSON object whose keys are the automaton format type, and
+        values the automaton in that format."
+      type: object
+      minLength: 1
+      additionalProperties:
+        $ref: "#/components/schemas/automaton_format"

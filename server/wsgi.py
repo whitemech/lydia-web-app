@@ -1,1 +1,3 @@
-from lydia_api.app import app as application
+from lydia_web_api.app import app
+flask_app = app.app
+application = flask_app

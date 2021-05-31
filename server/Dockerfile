@@ -22,29 +22,36 @@ RUN apt-get install -y build-essential && \
     apt-get install -y graphviz
 
 # Lydia build dependencies 
-# TODO remove all of these in favor of GH releases
-# CUDD
-RUN git clone https://github.com/KavrakiLab/cudd &&\
-    cd cudd &&\
-    autoreconf -i &&\
-    ./configure --enable-silent-rules --enable-obj --enable-dddmp &&\
-    make &&\
-    make install
 
+# CUDD
+RUN wget https://github.com/whitemech/cudd/releases/download/v3.0.0/cudd_3.0.0_linux-amd64.tar.gz &&\
+    tar -xf cudd_3.0.0_linux-amd64.tar.gz &&\
+    cd cudd_3.0.0_linux-amd64 &&\
+    sudo cp -P lib/* /usr/local/lib/ &&\
+    sudo cp -Pr include/* /usr/local/include
 
 # Flex & Bison & Graphviz
 RUN apt-get install -y flex && \
     apt-get install -y bison && \
     apt-get install -y libgraphviz-dev
 
-
 # MONA
-RUN wget https://github.com/cs-au-dk/MONA/archive/1.4-18.tar.gz &&\
-    tar -xf 1.4-18.tar.gz &&\
-    cd MONA-1.4-18 &&\
-    ./configure &&\
-    make &&\
-    make install
+RUN wget https://github.com/whitemech/MONA/releases/download/v1.4-19.dev0/mona_1.4-19.dev0_linux-amd64.tar.gz && \
+    tar -xf mona_1.4-19.dev0_linux-amd64.tar.gz && \
+    cd mona_1.4-19.dev0_linux-amd64 && \
+    sudo cp -P lib/* /usr/local/lib/ && \
+    sudo cp -Pr include/* /usr/local/include
+
+# Syft
+RUN wget https://github.com/whitemech/Syft/releases/download/v0.1.0/syft-3.0.0_ubuntu-20.04.tar.gz && \
+    tar -xf syft-3.0.0_ubuntu-20.04.tar.gz && \
+    cd syft-3.0.0_ubuntu-20.04 && \
+    sudo cp -P lib/* /usr/local/lib/
+
+# Install Lydia binary
+RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.0/lydia &&\
+    sudo chmod u+x lydia &&\
+    cp lydia /usr/local/bin/lydia
 
 EXPOSE 5000
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
@@ -53,12 +60,6 @@ RUN mkdir /build
 WORKDIR /build
 COPY . /build
 
-# TODO it takes too much time
-# RUN cd lydia && rm -rf build && mkdir build && cd build &&\
-#     cmake -DCMAKE_BUILD_TYPE=Release .. &&\
-#     make lydia-bin &&\
-#     make install
-RUN cp lydia-bin /usr/local/bin/lydia
 
 RUN pip3 install .
 RUN pip3 install gunicorn

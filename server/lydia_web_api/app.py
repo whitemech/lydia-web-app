@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # Copyright (C) 2021 WhiteMech
 #
@@ -14,9 +15,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""Start the app."""
 
-"""Test Lydia API."""
+import logging
 
+from flask_cors import CORS  # noqa: I201
 
-def test_server():
-    """Test the Lydia API server."""
+from lydia_web_api._global import app, configuration
+
+logging.basicConfig(
+    level=logging.DEBUG, format="[%(asctime)s][%(name)s][%(levelname)s] %(message)s"
+)
+
+app.add_api("apispec.yml")
+CORS(app.app)
+
+if __name__ == "__main__":
+    app.run(
+        host=configuration.FLASK_RUN_HOST,
+        port=configuration.FLASK_RUN_PORT,
+        debug=False,
+    )
