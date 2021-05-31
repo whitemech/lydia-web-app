@@ -63,4 +63,4 @@ COPY . /build
 
 RUN pip3 install .
 RUN pip3 install gunicorn
-CMD gunicorn --bind 0.0.0.0:$PORT wsgi
+CMD gunicorn --bind 0.0.0.0:$PORT --timeout 10 wsgi
