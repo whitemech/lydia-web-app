@@ -20,11 +20,11 @@ import tempfile
 from pathlib import Path
 from typing import Any, Callable, Dict, cast
 
-import logaut  # noqa: I201
-from flask import jsonify, request  # noqa: I100,I201
-from pylogics.parsers import parse_ldl, parse_ltl  # noqa: I201
-from pylogics.syntax.base import Formula  # noqa: I201
-from pythomata.impl.symbolic import SymbolicDFA  # noqa: I201
+import logaut
+from flask import jsonify, request
+from pylogics.parsers import parse_ldl, parse_ltl
+from pylogics.syntax.base import Formula
+from pythomata.impl.symbolic import SymbolicDFA
 
 from lydia_web_api._global import app
 from lydia_web_api.decorators import cachecontrol, request_handler

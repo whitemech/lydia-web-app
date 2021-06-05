@@ -21,3 +21,8 @@
 #
 
 """Lydia Web API."""
+from dotenv import load_dotenv
+
+from .constants import DOTENV_FILE
+
+load_dotenv(DOTENV_FILE)

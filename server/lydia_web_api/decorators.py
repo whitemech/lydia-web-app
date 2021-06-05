@@ -19,7 +19,7 @@ import logging
 import pprint
 from functools import wraps
 
-from flask import Flask, Response, abort, jsonify, request
+from flask import Flask, Response, abort, request
 from flask_cors import cross_origin
 
 from lydia_web_api.base import Problem
@@ -66,7 +66,8 @@ def log(func):
         )
         response: Response = func(*args, **kwargs)
         logger.info(
-            f"Returned response: status code: {response.status_code}, body: '{pprint.pformat(response.json)}'"
+            f"Returned response: status code: {response.status_code},"
+            f" body: '{pprint.pformat(response.json)}'"
         )
         return response
 

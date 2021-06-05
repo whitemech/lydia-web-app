@@ -19,12 +19,9 @@ import inspect
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
-
 CURRENT_DIRECTORY = Path(os.path.dirname(inspect.getfile(inspect.currentframe())))  # type: ignore
 ROOT_SERVER_DIRECTORY = str(Path(CURRENT_DIRECTORY).parent)
 DOTENV_FILE = os.path.join(ROOT_SERVER_DIRECTORY, ".env")
-load_dotenv(DOTENV_FILE)
 TIMEOUT = 5
 
 ABOUT_BLANK = "about:blank"

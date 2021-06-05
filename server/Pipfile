@@ -15,17 +15,24 @@ pytest-cov = "*"
 pytest-randomly = "*"
 flake8-bugbear = "*"
 flake8-docstrings = "*"
-flake8-import-order = "*"
+flake8-isort = "*"
 pydocstyle = "*"
 gunicorn = "*"
 safety = "*"
 vulture = "*"
+tox-pipenv-install = "*"
 
 [packages]
 flask = "*"
 flask-cors = "*"
 python-dotenv = "*"
 logaut = {git = "https://github.com/whitemech/logaut.git"}
+connexion = {extras = ["swagger-ui"], version = "*"}
+pythomata = "*"
+pylogics = ">=0.1.0a0"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
