@@ -553,7 +553,11 @@ class LdlfTranslate extends React.Component {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ formula: this.props.formula, formalism: "ldlf", output_formats: ["svg"]})
+      body: JSON.stringify({
+        formula: this.props.formula,
+        formalism: 'ldlf',
+        output_formats: ['svg'],
+      }),
     };
     fetch(`${api_endpoint()}/automaton`, requestOptions)
       .then(handleErrorsAndClearTimer(this.timer))
