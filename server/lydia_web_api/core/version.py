@@ -21,7 +21,7 @@
 import logging
 from platform import python_version
 
-from flask import __version__ as flask_version
+from flask import __version__ as flask_version  # type: ignore
 from flask import jsonify
 
 from lydia_web_api._global import app, configuration
