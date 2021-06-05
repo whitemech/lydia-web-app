@@ -513,9 +513,6 @@ class LdlfTranslate extends React.Component {
   };
 
   buildResult(res) {
-    // Return a lambda so we capture res, and can easily re-render
-    // the results on events (such as clicking on HOA or
-    // NeverClaim).
     return () => {
       return (
         <React.Fragment>
@@ -528,11 +525,11 @@ class LdlfTranslate extends React.Component {
             </Typography>
           )}
           {'note' in res && res['note'].map(note => <NoteText text={note} />)}
-          {'automaton_svg' in res && (
+          {'svg' in res && (
             <SVGInline
               className={this.props.classes.automaton_svg}
               component="div"
-              svg={res['automaton_svg']}
+              svg={res['svg']}
             />
           )}
         </React.Fragment>
@@ -545,9 +542,6 @@ class LdlfTranslate extends React.Component {
       this.setState({ result: '' });
       return;
     }
-    let url = new URL(
-      api_endpoint() + 'translate/' + encodeURIComponent(this.props.formula),
-    );
 
     this.timer = setTimeout(() => {
       this.setState({
@@ -556,7 +550,12 @@ class LdlfTranslate extends React.Component {
         ),
       });
     }, 800);
-    fetch(url)
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ formula: this.props.formula, formalism: "ldlf", output_formats: ["svg"]})
+    };
+    fetch(`${api_endpoint()}/automaton`, requestOptions)
       .then(handleErrorsAndClearTimer(this.timer))
       .then(res => {
         this.props.handleAnyParseError(res);

@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """Translate a formula."""
-import base64
 import logging
 import tempfile
 from pathlib import Path
@@ -45,7 +44,7 @@ def get_parser(formalism: str) -> Callable[[str], Formula]:
 
 def automaton_to_dot(dfa: SymbolicDFA) -> str:
     """Transform a SymbolicDFA to DOT."""
-    return base64.urlsafe_b64encode(dfa.to_graphviz().source.encode()).decode()
+    return dfa.to_graphviz().source
 
 
 def automaton_to_svg(dfa: SymbolicDFA) -> str:
@@ -53,8 +52,8 @@ def automaton_to_svg(dfa: SymbolicDFA) -> str:
     with tempfile.TemporaryDirectory() as tempdir:
         output_file = Path(tempdir, "output")
         dfa.to_graphviz().render(str(output_file), format="svg")
-        file_content = output_file.with_suffix(".svg").read_bytes()
-        return base64.urlsafe_b64encode(file_content).decode()
+        file_content = output_file.with_suffix(".svg").read_bytes().decode()
+        return file_content
 
 
 def automaton_to_json(dfa: SymbolicDFA) -> dict:
@@ -89,9 +88,10 @@ def serialize_automaton(dfa: SymbolicDFA, output_format: str) -> Any:
 @request_handler
 def automaton():
     """Translate an LDLf formula."""
-    formalism = request.args.get("formalism")
-    formula = request.args.get("formula")
-    output_formats = request.args.getlist("output_format")
+    data = request.json
+    formalism = data.get("formalism")
+    formula = data.get("formula")
+    output_formats = data.get("output_formats")
     res = {}
     formula = get_parser(formalism)(formula)
     result: SymbolicDFA = cast(SymbolicDFA, logaut.ldl2dfa(formula=formula))

@@ -18,9 +18,11 @@
 
 from flask import jsonify
 
+from lydia_web_api._global import app
 from lydia_web_api.decorators import request_handler
 
 
+@app.route("/api/")
 @request_handler
 def check():
     """Return success (health-check)."""

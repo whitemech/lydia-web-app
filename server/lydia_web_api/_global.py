@@ -27,4 +27,11 @@ from lydia_web_api.base import Configuration
 configuration = Configuration()
 """Globally available configuration object."""
 
-app = connexion.App(__name__, specification_dir="spec/")
+app = connexion.App(
+    __name__,
+    specification_dir="spec/",
+    server_args=dict(
+        static_folder=configuration.FLASK_STATIC_FOLDER, static_url_path=""
+    ),
+)
+flask_app = app.app

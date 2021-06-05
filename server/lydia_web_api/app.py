@@ -18,17 +18,24 @@
 """Start the app."""
 
 import logging
+import os
 
 from flask_cors import CORS  # noqa: I201
 
-from lydia_web_api._global import app, configuration
+from lydia_web_api._global import app, configuration, flask_app
 
 logging.basicConfig(
     level=logging.DEBUG, format="[%(asctime)s][%(name)s][%(levelname)s] %(message)s"
 )
 
 app.add_api("apispec.yml")
-CORS(app.app)
+CORS(flask_app)
+
+
+@flask_app.route("/")
+def index():
+    return flask_app.send_static_file("index.html")
+
 
 if __name__ == "__main__":
     app.run(

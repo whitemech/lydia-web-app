@@ -19,7 +19,8 @@ import logging
 import pprint
 from functools import wraps
 
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, abort, jsonify, request
+from flask_cors import cross_origin
 
 from lydia_web_api.base import Problem
 from lydia_web_api.exceptions import LydiaApiException
@@ -60,10 +61,13 @@ def log(func):
         """Wrap the method function so to log inputs and outputs."""
         logger.info(
             f"Method '{func.__module__}.{func.__name__}' called with parameters: "
-            f"'{args}' and '{kwargs}', query parameters: '{request.args}'"
+            f"'{args}' and '{kwargs}', query parameters: '{request.args}',"
+            f"body parameters: '{request.json}'"
         )
         response: Response = func(*args, **kwargs)
-        logger.info(f"Returned response: '{pprint.pformat(response.json)}'")
+        logger.info(
+            f"Returned response: status code: {response.status_code}, body: '{pprint.pformat(response.json)}'"
+        )
         return response
 
     return wrapper
@@ -79,13 +83,13 @@ def handle_error(func):
             return func(*args, **kwargs)
         except LydiaApiException as e:
             problem = Problem("API error", 400, f"{str(e)}")
-            return jsonify(problem.json)
+            abort(400, problem.json)
         except Exception as e:
             detail = f"{type(e).__name__}: {str(e)}"
             problem = Problem("generic error", 400, detail)
-            return jsonify(problem.json)
+            abort(400, problem.json)
 
     return wrapper
 
 
-request_handler = composed(log, handle_error)
+request_handler = composed(cross_origin(), log, handle_error)

@@ -20,6 +20,7 @@ import logging
 import os
 import shutil
 from dataclasses import dataclass
+from typing import Optional
 
 from lydia_web_api.constants import ABOUT_BLANK
 
@@ -30,6 +31,7 @@ logger = logging.getLogger(__name__)
 class Configuration:
     """Class to seamlessly read configuration from the code and from OS environment."""
 
+    FLASK_STATIC_FOLDER: Optional[str] = None
     FLASK_RUN_HOST: str = "0.0.0.0"
     FLASK_RUN_PORT: int = 5000
     LYDIA_BIN_PATH: str = shutil.which("lydia") or "lydia"

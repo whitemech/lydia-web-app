@@ -63,7 +63,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/problem"
   /automaton:
-    get:
+    post:
       summary: "Compute the automaton equivalent to the input formula."
       description: "This method takes in input:
       - the formalism the formula is written in
@@ -73,25 +73,13 @@ paths:
       and returns the automaton in the specified formats."
       operationId: lydia_web_api.core.automaton.automaton
       deprecated: false
-      parameters:
-      - in: query
-        name: formalism
+      requestBody:
+        description: "Automaton request."
         required: true
-        schema:
-          $ref: "#/components/schemas/supported_formalisms"
-        description: The formalism in which the formula is written in.
-      - in: query
-        name: formula
-        required: true
-        schema:
-          $ref: "#/components/schemas/formula"
-        description: The formula to translate.
-      - in: query
-        name: output_format
-        required: true
-        schema:
-          $ref: "#/components/schemas/automaton_formats"
-        description: The formula to translate.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/automaton_request'
       tags: [ "LYDIA" ]
       responses:
         200:
@@ -120,8 +108,7 @@ components:
         $ref: "#/components/schemas/automaton_format"
     problem:
       description: "error occurred - see status code and problem object for more information."
-      type: object
-#      $ref: 'https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml#/Problem'
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml#/Problem'
     output_automaton:
       description: "A JSON object whose keys are the automaton format type, and
         values the automaton in that format."
@@ -129,3 +116,17 @@ components:
       minLength: 1
       additionalProperties:
         $ref: "#/components/schemas/automaton_format"
+    automaton_request:
+      description: "The JSON body object for the automaton request."
+      type: object
+      required:
+        - formalism
+        - formula
+        - output_formats
+      properties:
+        formalism:
+          $ref: "#/components/schemas/supported_formalisms"
+        formula:
+          $ref: "#/components/schemas/formula"
+        output_formats:
+          $ref: "#/components/schemas/automaton_formats"
