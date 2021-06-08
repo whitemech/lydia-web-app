@@ -24,36 +24,35 @@ RUN apt-get install -y build-essential && \
 
 # Lydia build dependencies 
 
-# Flex & Bison & Graphviz
-RUN apt-get install -y flex && \
-    apt-get install -y bison && \
-    apt-get install -y libgraphviz-dev
-
-
-RUN echo "Installing CUDD..." &&\
-    wget https://github.com/whitemech/cudd/releases/download/v3.0.0/cudd_3.0.0_linux-amd64.tar.gz &&\
+# CUDD
+RUN wget https://github.com/whitemech/cudd/releases/download/v3.0.0/cudd_3.0.0_linux-amd64.tar.gz &&\
     tar -xf cudd_3.0.0_linux-amd64.tar.gz &&\
     cd cudd_3.0.0_linux-amd64 &&\
     sudo cp -P lib/* /usr/local/lib/ &&\
     sudo cp -Pr include/* /usr/local/include
 
-RUN echo "Installing MONA..." &&\
-    wget https://github.com/whitemech/MONA/releases/download/v1.4-18.dev0/mona_1.4-18.dev0_linux-amd64.tar.gz &&\
-    tar -xf mona_1.4-18.dev0_linux-amd64.tar.gz &&\
-    cd mona_1.4-18.dev0_linux-amd64 &&\
-    sudo cp -P lib/* /usr/local/lib/ &&\
+# Flex & Bison & Graphviz
+RUN apt-get install -y flex && \
+    apt-get install -y bison && \
+    apt-get install -y libgraphviz-dev
+
+# MONA
+RUN wget https://github.com/whitemech/MONA/releases/download/v1.4-19.dev0/mona_1.4-19.dev0_linux-amd64.tar.gz && \
+    tar -xf mona_1.4-19.dev0_linux-amd64.tar.gz && \
+    cd mona_1.4-19.dev0_linux-amd64 && \
+    sudo cp -P lib/* /usr/local/lib/ && \
     sudo cp -Pr include/* /usr/local/include
 
-RUN echo "Installing MiniSAT..." &&\
-    wget https://github.com/whitemech/minisat/releases/download/v2.1.0/minisat_2.1.0_linux-amd64.tar.gz &&\
-    tar -xf minisat_2.1.0_linux-amd64.tar.gz &&\
-    cd minisat_2.1.0_linux-amd64 &&\
-    sudo cp -P lib/* /usr/local/lib/ &&\
-    sudo cp -Pr include/* /usr/local/include
+# Syft
+RUN wget https://github.com/whitemech/Syft/releases/download/v0.1.0/syft-3.0.0_ubuntu-20.04.tar.gz && \
+    tar -xf syft-3.0.0_ubuntu-20.04.tar.gz && \
+    cd syft-3.0.0_ubuntu-20.04 && \
+    sudo cp -P lib/* /usr/local/lib/
 
-# helper tools
-RUN apt-get install -y curl && \
-    apt-get install -y gnupg
+# Install Lydia binary
+RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.1/lydia &&\
+    sudo chmod u+x lydia &&\
+    cp lydia /usr/local/bin/lydia
 
 # install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
