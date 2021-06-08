@@ -54,6 +54,11 @@ RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.1/lydia &&\
     sudo chmod u+x lydia &&\
     cp lydia /usr/local/bin/lydia
 
+
+# helper tools
+RUN apt-get install -y curl && \
+    apt-get install -y gnupg
+
 # install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
