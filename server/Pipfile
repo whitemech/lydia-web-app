@@ -26,10 +26,10 @@ tox-pipenv-install = "*"
 flask = "*"
 flask-cors = "*"
 python-dotenv = "*"
-logaut = {git = "https://github.com/whitemech/logaut.git"}
+logaut = ">=0.1.0"
 connexion = {extras = ["swagger-ui"], version = "*"}
 pythomata = "*"
-pylogics = ">=0.1.0a0"
+pylogics = ">=0.1.0"
 
 [requires]
 python_version = "3.7"
