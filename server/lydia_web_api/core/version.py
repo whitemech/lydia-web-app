@@ -48,7 +48,9 @@ def version():
 
     try:
         # workaround due to issue https://github.com/whitemech/lydia/issues/106
-        lydia = run_cli([configuration.LYDIA_BIN_PATH, "--version", "--inline=tt", "--logic=ldlf"])
+        lydia = run_cli(
+            [configuration.LYDIA_BIN_PATH, "--version", "--inline=tt", "--logic=ldlf"]
+        )
         (out, err) = lydia.communicate(timeout=0.5)
         assert_(lydia.returncode == 0)
         lydia_version = out.decode("utf-8").strip()
