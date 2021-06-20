@@ -50,7 +50,7 @@ RUN wget https://github.com/whitemech/Syft/releases/download/v0.1.0/syft-3.0.0_u
     sudo cp -P lib/* /usr/local/lib/
 
 # Install Lydia binary
-RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.1/lydia &&\
+RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.2/lydia &&\
     sudo chmod u+x lydia &&\
     cp lydia /usr/local/bin/lydia
 
