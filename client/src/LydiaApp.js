@@ -552,14 +552,21 @@ class LdlfTranslate extends React.Component {
     }, 800);
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
+      },
       body: JSON.stringify({
         formula: this.props.formula,
         formalism: 'ldlf',
         output_formats: ['svg'],
       }),
     };
-    fetch(`${api_endpoint()}/automaton`, requestOptions)
+    console.log("Calling " + `${api_endpoint()}/translate` + "with arguments ");
+    console.log(requestOptions);
+    fetch(`${api_endpoint()}/translate`, requestOptions)
       .then(handleErrorsAndClearTimer(this.timer))
       .then(res => {
         this.props.handleAnyParseError(res);

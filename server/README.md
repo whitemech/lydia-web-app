@@ -18,21 +18,7 @@ Follows a very short summary of the services exposed:
 
 - Create virtual environment with Pipenv:
 ```
-pipenv shell --python=3.7 && pipenv install --dev
-```
-
-- To run tests:
-```
-tox -e py3.7
-```
-
-- To run linters:
-```
-tox -e bandit
-tox -e black-check
-tox -e isort-check
-tox -e flake8
-tox -e mypy
+pipenv shell && pipenv install --dev
 ```
 
 ## Run

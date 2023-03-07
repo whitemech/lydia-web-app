@@ -23,6 +23,7 @@ from platform import python_version
 
 from flask import __version__ as flask_version  # type: ignore
 from flask import jsonify
+from flask_cors import cross_origin
 
 from lydia_web_api._global import app, configuration
 from lydia_web_api.decorators import cachecontrol, request_handler

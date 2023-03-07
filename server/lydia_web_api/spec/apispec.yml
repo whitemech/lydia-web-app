@@ -62,7 +62,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/problem"
-  /automaton:
+  /translate:
     post:
       summary: "Compute the automaton equivalent to the input formula."
       description: "This method takes in input:

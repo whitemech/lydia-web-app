@@ -21,25 +21,26 @@ import logging
 
 from flask_cors import CORS
 
-from lydia_web_api._global import app, configuration, flask_app
+from lydia_web_api._global import app, configuration
 
 logging.basicConfig(
     level=logging.DEBUG, format="[%(asctime)s][%(name)s][%(levelname)s] %(message)s"
 )
 
 app.add_api("apispec.yml")
-CORS(flask_app)
 
 
-@flask_app.route("/")
+@app.app.route("/")
 def index():
     """Return the index."""
-    return flask_app.send_static_file("index.html")
+    return app.app.send_static_file("index.html")
 
 
 if __name__ == "__main__":
+    CORS_RESOURCES = {r"/api/*": {"origins": "*"}}
+    CORS(app.app, resources=CORS_RESOURCES)
     app.run(
         host=configuration.FLASK_RUN_HOST,
-        port=configuration.FLASK_RUN_PORT,
+        port=int(configuration.FLASK_RUN_PORT),
         debug=False,
     )

@@ -6,7 +6,7 @@ name = "pypi"
 [dev-packages]
 pytest = "*"
 flake8 = "*"
-black = "==21.5b1"
+black = "*"
 isort = "*"
 tox = "*"
 mypy = "*"
@@ -32,7 +32,7 @@ pythomata = "*"
 pylogics = ">=0.1.0"
 
 [requires]
-python_version = "3.7"
+python_version = "3.10"
 
 [pipenv]
 allow_prereleases = true

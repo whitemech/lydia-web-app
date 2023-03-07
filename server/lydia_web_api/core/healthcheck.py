@@ -17,6 +17,7 @@
 """Health-check."""
 
 from flask import jsonify
+from flask_cors import cross_origin
 
 from lydia_web_api._global import app
 from lydia_web_api.decorators import request_handler

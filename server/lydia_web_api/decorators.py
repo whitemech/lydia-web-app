@@ -19,6 +19,8 @@ import logging
 import pprint
 from functools import wraps
 
+import flask
+import werkzeug.exceptions
 from flask import Flask, Response, abort, request
 from flask_cors import cross_origin
 
@@ -59,10 +61,14 @@ def log(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         """Wrap the method function so to log inputs and outputs."""
+        try:
+            json_body = request.json
+        except werkzeug.exceptions.BadRequest:
+            json_body = {}
         logger.info(
             f"Method '{func.__module__}.{func.__name__}' called with parameters: "
             f"'{args}' and '{kwargs}', query parameters: '{request.args}',"
-            f"body parameters: '{request.json}'"
+            f"body parameters: '{json_body}'"
         )
         response: Response = func(*args, **kwargs)
         logger.info(

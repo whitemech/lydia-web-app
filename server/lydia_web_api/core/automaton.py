@@ -22,6 +22,7 @@ from typing import Any, Callable, Dict, cast
 
 import logaut
 from flask import jsonify, request
+from flask_cors import cross_origin
 from pylogics.parsers import parse_ldl, parse_ltl
 from pylogics.syntax.base import Formula
 from pythomata.impl.symbolic import SymbolicDFA
