@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 USER root
 
@@ -58,6 +58,10 @@ RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.2/lydia &&\
 # helper tools
 RUN apt-get install -y curl && \
     apt-get install -y gnupg
+
+# install node
+RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh &&\
+    sudo bash nodesource_setup.sh
 
 # install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
